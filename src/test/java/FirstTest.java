@@ -5,20 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 
-public class FirstTest {
-
-    WebDriver driver;
-
-    @Before
-    public void start() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver = new ChromeDriver();
-    }
-
-    @After
-    public void close() {
-        driver.quit();
-    }
+public class FirstTest extends BaseTest {
 
     @Test
     public void firstTest() {
