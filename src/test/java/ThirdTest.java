@@ -1,15 +1,12 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class ThirdTest extends BaseTest {
     @Test
     public void h1IsPresent(){
-        login();
+        loginToAdmin();
         checkH1(By.cssSelector("#app- > a[href*='appearance']"));
         checkH1(By.id("doc-template"));
         checkH1(By.id("doc-logotype"));
@@ -66,6 +63,8 @@ public class ThirdTest extends BaseTest {
     private void checkH1(By locator) {
         driver.findElement(locator).click();
         assertTrue(driver.findElements(By.cssSelector("h1")) !=null);
+
+        //for me in order to check
         System.out.println(driver.findElements(By.cssSelector("h1")).get(0).getText());
     }
 }
