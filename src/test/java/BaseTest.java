@@ -28,4 +28,8 @@ public class BaseTest {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
     }
+
+    protected void goToMainPage(){
+        driver.get("http://localhost/litecart/");
+    }
 }
