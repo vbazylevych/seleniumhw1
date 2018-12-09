@@ -61,16 +61,6 @@ public class ThirdTest extends BaseTest {
         checkH1(By.cssSelector("#app- > a[href*='users']"));
         checkH1(By.cssSelector("#app- > a[href*='vqmods']"));
         checkH1(By.id("doc-vqmods"));
-
-
-
-
-
-
-
-
-
-
     }
 
     private void checkH1(By locator) {
