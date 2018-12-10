@@ -30,8 +30,6 @@ public class ThirdTest extends BaseTest {
                 }
                 driver.get("http://localhost/litecart/admin/");
             }
-
-            driver.get("http://localhost/litecart/admin/");
         }
     }
 }
