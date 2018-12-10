@@ -10,10 +10,10 @@ public class ThirdTest extends BaseTest {
     @Test
     public void test() {
         loginToAdmin();
-        int menuSize = driver.findElements(By.cssSelector("#box-apps-menu li")).size();
+        int menuSize = driver.findElements(By.cssSelector("#box-apps-menu > li")).size();
 
         for (int i = 0; i < menuSize; i++) {
-            List<WebElement> elements2 = driver.findElements(By.cssSelector("#box-apps-menu li"));
+            List<WebElement> elements2 = driver.findElements(By.cssSelector("#box-apps-menu > li"));
             elements2.get(i).click();
 
             assertTrue(driver.findElements(By.cssSelector("h1")) != null);
@@ -28,7 +28,6 @@ public class ThirdTest extends BaseTest {
                     assertTrue(driver.findElements(By.cssSelector("h1")) != null);
                     System.out.println(driver.findElements(By.cssSelector("h1")).get(0).getText());
                 }
-                driver.get("http://localhost/litecart/admin/");
             }
         }
     }
