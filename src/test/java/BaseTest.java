@@ -3,6 +3,8 @@ import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,14 +24,14 @@ public class BaseTest {
         driver.quit();
     }
 
-    protected void loginToAdmin(){
+    protected void loginToAdmin() {
         driver.get("http://localhost/litecart/admin/");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
     }
 
-    protected void goToMainPage(){
+    protected void goToMainPage() {
         driver.get("http://localhost/litecart/");
     }
 }
