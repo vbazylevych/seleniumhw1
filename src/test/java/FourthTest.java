@@ -1,5 +1,6 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.util.Comparator;
 import java.util.List;
@@ -25,42 +26,48 @@ public class FourthTest extends BaseTest {
     }
 
     @Test
-    public void zonesForCanadaIsSorted() {
+    public void zonesForCountriesWithSeveralZonesIsSorted() {
         loginToAdmin();
-        testZoneSorted("http://localhost/litecart/admin/?app=countries&doc=edit_country&country_code=CA");
+        driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+        List<WebElement> listOfCountriesWithSeveralZones = getListOfCountriesWithSeveralZones();
+        int size = listOfCountriesWithSeveralZones.size();
+
+        for (int i = 0; i < size; i++) {
+            List<WebElement> actualListOfCountriesWithSeveralZones = getListOfCountriesWithSeveralZones();
+            actualListOfCountriesWithSeveralZones.get(i).findElement(By.cssSelector("td:nth-child(5) > a")).click();
+            testZoneSorted();
+            driver.navigate().back();
+        }
     }
 
     @Test
-    public void zonesForUSIsSorted() {
-        loginToAdmin();
-        testZoneSorted("http://localhost/litecart/admin/?app=countries&doc=edit_country&country_code=US");
-    }
-
-    @Test
-    public void geoZonesForCanadaIsSorted() {
+    public void geoZonesIsSorted() {
         loginToAdmin();
         driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
-        testGeoZoneSorted("http://localhost/litecart/admin/?app=geo_zones&doc=edit_geo_zone&page=1&geo_zone_id=1");
+        List<WebElement> listOfCountries = driver.findElements(By.cssSelector(".row"));
+        int size = listOfCountries.size();
+        for (int i = 0; i < size; i++) {
+            List<WebElement> newListOfCountries = driver.findElements(By.cssSelector(".row"));
+            newListOfCountries.get(i).findElement(By.cssSelector("td:nth-child(3) > a")).click();
+            testGeoZoneSorted();
+            driver.navigate().back();
+        }
     }
 
-    @Test
-    public void geoZonesForUSIsSorted() {
-        loginToAdmin();
-        driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones");
-        testGeoZoneSorted("http://localhost/litecart/admin/?app=geo_zones&doc=edit_geo_zone&page=1&geo_zone_id=2");
+    private List<WebElement> getListOfCountriesWithSeveralZones() {
+        return driver.findElements(By.cssSelector(".row")).
+                stream().filter(e -> Integer.parseInt(e.findElement(By.cssSelector("td:nth-child(6)")).getAttribute("textContent")) > 0)
+                .collect(Collectors.toList());
     }
 
-    private void testGeoZoneSorted(String url) {
-        driver.get(url);
+    private void testGeoZoneSorted() {
         List<String> listOfCountries = getListOfNames("select[name*='zone_code'] > option[selected='selected']");
         List<String> listOfSortedCountries = getListOfNames("select[name*='zone_code'] > option[selected='selected']");
         listOfSortedCountries.sort(Comparator.naturalOrder());
         assertThat(listOfCountries, equalTo(listOfSortedCountries));
     }
 
-    private void testZoneSorted(String url) {
-        driver.get(url);
-
+    private void testZoneSorted() {
         List<String> listOfCountries = getListOfNames("#table-zones tr td:nth-child(3)");
         if (listOfCountries.get(listOfCountries.size() - 1).equals("")) {
             listOfCountries.remove(listOfCountries.size() - 1);
@@ -72,10 +79,8 @@ public class FourthTest extends BaseTest {
         }
 
         listOfSortedCountries.sort(Comparator.naturalOrder());
-
         assertThat(listOfCountries, equalTo(listOfSortedCountries));
     }
-
 
     private List getListOfNames(String locator) {
         return driver.findElements(By.cssSelector(locator))
