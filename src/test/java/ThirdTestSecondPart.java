@@ -10,7 +10,7 @@ public class ThirdTestSecondPart extends BaseTest {
     @Test
     public void h1IsPresent() {
         driver.get("http://localhost/litecart/");
-        List<WebElement> ducks = driver.findElements(By.cssSelector(".product.column.shadow.hover-light"));
+        List<WebElement> ducks = driver.findElements(By.cssSelector("[class^='product']"));
         ducks.forEach(duck -> checkSticer(duck));
     }
 
