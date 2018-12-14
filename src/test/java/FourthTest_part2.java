@@ -67,9 +67,7 @@ public class FourthTest_part2 extends BaseTest {
         double doubleSizeFountMainPageCampaignPrice = Double.parseDouble(sizeFountMainPageCompainPrice.substring(0, sizeFountMainPageCompainPrice.length() - 2));
         double doubleSizeFountMainPageRegularPrice = Double.parseDouble(sizeFountMainPageRegularPrice.substring(0, sizeFountMainPageCompainPrice.length() - 2));
         assertTrue(doubleSizeFountMainPageCampaignPrice > doubleSizeFountMainPageRegularPrice);
-
     }
-
 
 }
 
