@@ -1,10 +1,14 @@
 import org.junit.Test;
 
+import java.util.HashMap;
+
 public class HW11 extends BaseTest {
     @Test
     public void LoginLogout() {
-        loginAsNewUser();
-
-
+        HashMap<String, String> userCredential = loginAsNewUser();
+        logOut();
+        reLoginAsUser(userCredential);
+        logOut();
     }
+
 }

@@ -1,9 +1,7 @@
 import net.bytebuddy.utility.RandomString;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -34,28 +32,28 @@ public class BaseTest {
         driver.findElement(By.name("login")).click();
     }
 
-    @Test
-    public void loginAsNewUser() {
+    public HashMap<String, String> loginAsNewUser() {
         driver.get("http://localhost/litecart/");
         driver.findElement(By.cssSelector(".content a[href$='create_account']")).click();
         driver.findElement(By.name("firstname")).sendKeys(RandomString.make(5));
         driver.findElement(By.name("lastname")).sendKeys(RandomString.make(5));
         driver.findElement(By.name("address1")).sendKeys(RandomString.make(5));
-        driver.findElement(By.name("postcode")).sendKeys("1111");
+        driver.findElement(By.name("postcode")).sendKeys("11111");
         driver.findElement(By.name("city")).sendKeys("City");
-     //   driver.findElement(By.className("select2-selection__arrow")).click();
-     //   driver.findElement(By.className("select2-search__field")).sendKeys("United States"+ Keys.ENTER);
-        driver.findElement(By.className("select2-selection select2-selection--single")).click();
-       // driver.findElement(By.cssSelector("[class^='product']")).click();
+        Select selectCountryCode = new Select(driver.findElement(By.cssSelector("select[name='country_code']")));
+        selectCountryCode.selectByVisibleText("United States");
         String login = "kot" + RandomString.make(5) + "@gmail.com";
         String pass = "12345678";
-        driver.findElement(By.name("email")).sendKeys(login);
-        driver.findElement(By.name("password")).sendKeys(pass);
-        driver.findElement(By.name("login")).click();
+        driver.findElement(By.cssSelector("input[name='email']")).sendKeys(login);
+        driver.findElement(By.cssSelector("input[name='password']")).sendKeys(pass);
+        driver.findElement(By.cssSelector("input[name='phone']")).sendKeys("+380638494949");
+        driver.findElement(By.cssSelector("input[name='confirmed_password']")).sendKeys(pass);
+        driver.findElement(By.cssSelector("button[name='create_account']")).click();
+
         HashMap<String, String> userCredential = new HashMap<>();
         userCredential.put("login", login);
         userCredential.put("pass", pass);
-
+        return userCredential;
     }
 
     protected void reLoginAsUser(HashMap<String, String > userCredential) {
@@ -64,6 +62,9 @@ public class BaseTest {
         driver.findElement(By.name("password")).sendKeys(userCredential.get("pass"));
         driver.findElement(By.name("login")).click();
     }
+   protected void logOut(){
+        driver.findElement(By.cssSelector(".list-vertical a[href$='logout']")).click();
+   }
 
     protected void goToMainPage() {
         driver.get("http://localhost/litecart/");

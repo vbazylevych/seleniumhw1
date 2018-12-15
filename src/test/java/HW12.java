@@ -4,19 +4,16 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.Select;
-
 import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-
 public class HW12 extends BaseTest {
-
     @Test
     public void test() throws InterruptedException {
         loginToAdmin();
-        driver.findElement(By.cssSelector("#app- > a[href*='catalog']")).click();
 
+        driver.findElement(By.cssSelector("#app- > a[href*='catalog']")).click();
         driver.findElement(By.cssSelector("a[href*='edit_product']")).click();
         driver.findElement(By.cssSelector("input[value='1']")).click();
         String unicNameOfProduct = "Kotenka" + RandomString.make(4);
@@ -36,7 +33,6 @@ public class HW12 extends BaseTest {
         driver.findElement(By.cssSelector("input[name='date_valid_to']")).sendKeys("06.08.2108");
 
         driver.findElement(By.cssSelector("a[href*='tab-information']")).click();
-
         driver.findElement(By.cssSelector("input[name='head_title[en]']")).sendKeys("Kotenka Serenkii");
         driver.findElement(By.className("trumbowyg-editor")).sendKeys("Prosto kot");
 
@@ -46,6 +42,7 @@ public class HW12 extends BaseTest {
         Select currency = new Select(driver.findElement(By.cssSelector("select[name='purchase_price_currency_code']")));
         currency.selectByVisibleText("Euros");
         driver.findElement(By.cssSelector("button[name='save']")).click();
+
         String textContent = driver.findElement(By.cssSelector(".dataTable tr:nth-last-child(2)")).getAttribute("textContent");
         assertThat(textContent, Matchers.containsString(unicNameOfProduct));
     }
