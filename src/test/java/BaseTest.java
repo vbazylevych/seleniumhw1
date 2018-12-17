@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -12,12 +13,14 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     @Before
     public void start() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        wait = new  WebDriverWait(driver, 5);
     }
 
     @After
